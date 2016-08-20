@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="questionApp">
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  
+<style>
+          @font-face {
+    font-family: 'pureevil';
+    src: url('fonts/puree____2-webfont.eot');
+    src: url('fonts/puree____2-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/puree____2-webfont.woff2') format('woff2'),
+         url('fonts/puree____2-webfont.woff') format('woff'),
+         url('fonts/puree____2-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    }
+       @font-face {
+    font-family: 'nexarust';
+    src: url('fonts/nexarustslab-webfont.eot');
+    src: url('fonts/nexarustslab-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/nexarustslab-webfont.woff2') format('woff2'),
+         url('fonts/nexarustslab-webfont.woff') format('woff'),
+         url('fonts/nexarustslab-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    }
+.row.content {
+	height: 1500px
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+	background-color: #f1f1f1;
+	height: 100%;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	background-color: #555;
+	color: white;
+	padding: 15px;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 15px;
+	}
+	.row.content {
+		height: auto;
+	}
+}
+
+.content {
+	margin-top: 60px;
+}
+
+.well {
+	margin-top: 8px;
+}
+
+.textArea {
+	margin-top: 10px;
+}
+
+.btnsend {
+	margin-top: 10px;
+}
+
+.answers {
+	background-color: #c5d8eb;
+	margin-top: 10px;
+	padding: 15px;
+	border-radius: 8px 8px 8px 8px;
+} 
+
+.checkBoxTag {
+	display: inline;
+	margin-left: 5px;
+}
+</style>
+</head>
+<body>
+
+
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#"><p style="font-family:nexarust;">ASK.POKE</p></a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Home</a></li>
+				<li ng-controller="UserController as uc"><a href="#/signup">Register</a></li>
+				<li ng-controller="UserController as uc"><a href="#/userList">User
+						List</a></li>
+				<li ng-controller="UserController as uc"><a type="button"
+					data-toggle="modal" href="#addQuestion">Add Question </a></li>
+			</ul>
+			
+		</div>
+	</div>
+	<div id="addQuestion" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h3 class="modal-title">Add Question</h3>
+				</div>
+				<div class="modal-body">
+					<form  ng-controller="QuestionController as qc" name="form">
+                        <div class="form-group">
+							User ID: <input ng-model='qc.questionToAdd.id' type="text" class="form-control" name="id">
+						</div>
+                        
+						<div class="form-group">
+							Title: <input ng-model='qc.questionToAdd.title' type="text" class="form-control" name="title">
+						</div>
+						<div class="form-group">
+							Tags:
+							<div class="checkbox checkBoxTag">
+								<label class="label label-danger"><input type="checkbox"
+									value="">Java</label>
+							</div>
+							<div class="checkbox checkBoxTag">
+								<label class="label label-success"><input
+									type="checkbox" value="">JavaScript</label>
+							</div>
+							<div class="checkbox checkBoxTag">
+								<label class="label label-primary"><input
+									type="checkbox" value="">HTML5</label>
+							</div>
+							<div class="checkbox checkBoxTag">
+								<label class="label label-warning"><input
+									type="checkbox" value="">Python</label>
+							</div>
+							<div class="checkbox checkBoxTag">
+								<label class="label label-danger"><input type="checkbox"
+									value="">CSS</label>
+							</div>
+							<div class="checkbox checkBoxTag">
+								<label class="label label-success"><input
+									type="checkbox" value="">C++</label>
+							</div>
+							<div class="checkbox checkBoxTag">
+								<label class="label label-primary"><input
+									type="checkbox" value="">C</label>
+							</div>
+							<div class="checkbox checkBoxTag">
+								<label class="label label-warning"><input
+									type="checkbox" value="">SQL</label>
+							</div>
+						</div>
+						<div class="form-group">
+							Question:
+							<textarea ng-model='qc.questionToAdd.text' type="text" class="form-control" name="text"
+								rows="5"></textarea>
+						</div>
+						<div class="form-group">
+							Score: <input ng-model='qc.questionToAdd.score' type="number" class="form-control" name="score">
+						</div>
+
+						
+							<input type="submit" value="Send" class="btn btn-primary"  ng-click='qc.addQuestion()'>
+						
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	<div ng-view></div>
+	
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/angular-route.min.js"></script>
+<!--     <link type="stylesheet" src="app/css/bootstrap.min.css"></link> -->
+<!--     <script type="text/javascript" src="js/jquery.min.js"></script> -->
+<!--     <script type="text/javascript" src="js/bootstrap.min.js"></script> -->
+	<script type="text/javascript" src="app/controllers/usercontroller.js"></script>
+	<script type="text/javascript" src="app/controllers/questioncontroller.js"></script>
+	<script type="text/javascript" src="app/question.app.js"></script>
+</body>
+</html>

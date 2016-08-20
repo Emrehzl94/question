@@ -1,0 +1,72 @@
+<div class="container fluid content">
+	<form class="navbar-form navbar-right" role="search">
+		<div class="form-group input-group">
+			<input type="text" class="form-control" placeholder="Search.." ng-model="searchText">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</span>
+		</div>
+	</form>
+	<div class="row" ng-repeat="q in qc.questions | filter:searchText">
+		<div class="col-sm-12 well">
+			<button type="button" class="close" data-dismiss="modal"
+				ng-click='qc.removeQuestion(q)'>&times;</button>
+			<h1>{{q.title}}</h1>
+			<h5>
+				<span class="glyphicon glyphicon-time"></span>{{q.date |
+				date:'medium'}}
+				<span >- User: {{q.user.name | uppercase}}</span>
+			</h5>
+			<h5>
+				<span class="label label-danger">Java</span> <span
+					class="label label-primary">Js</span>
+			</h5>
+			<br>
+			<pre>{{q.text}}</pre>
+			<br> <span><button class="btn btn-danger"
+					data-toggle="collapse" data-target="#{{q.id}}">Answer It</button>
+				<button class="btn btn-info" data-toggle="collapse"
+					data-target="#Q{{q.id}}">Answers</button> </span>
+			<div id="{{q.id}}" class="collapse textArea">
+				<form>
+					<input ng-model='qc.answerToAdd.uid' type="number"
+						class="form-control" name="uid" />
+					<h3>{{qc.answerToAdd.qid}}</h3>
+					<textarea ng-model='qc.answerToAdd.desc' class="form-control"
+						rows="5" name="desc"></textarea>
+					<input class="btn btn-success btnsend"
+						ng-click='qc.addAnswer(q.id)' value="Send" type="submit" />
+				</form>
+
+			</div>
+
+			<div id="{{q.id}}" class="collapse textArea">
+				<form>
+					<textarea class="form-control" rows="5" id="comment"></textarea>
+
+				</form>
+				<button class="btn btn-success btnsend">Send</button>
+			</div>
+			<div id="Q{{q.id}}" class="collapse">
+				<h3>Answers</h3>
+				<div class="answers" ng-repeat="a in q.answers">
+					<!-- <div class="row" ng-repeat="a in qc.questions.answers"> -->
+					<button style="float:right;" type="button" class="close" data-dismiss="modal"
+				      ng-click='qc.removeAnswer(a)'>&times;</button>
+				    <p style="float:right; margin-right:10px;" >{{a.date | date : 'medium'}}</p>
+				      
+				      <h4><img src="img/Pokeball.png" class="img-rounded" alt="Cinque Terre" width="15" height="15">
+				      <bold>{{a.user.name | uppercase}}</bold></h4>
+					<pre class="well">{{a.desc}}</pre>
+				</div>
+
+			</div>
+
+		</div>
+
+
+
+
+	</div>
