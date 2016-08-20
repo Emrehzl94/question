@@ -1,0 +1,50 @@
+<table class="table table-hover">
+	
+	<tr>
+		<td><b>Name</b></td>
+		<td><b>Email<b></td>
+		<td><b>Password</b></td>
+		<td></td>
+		<td></td>
+	</tr>
+	
+	<tr ng-repeat= "c in uc.users | orderBy: 'name' | filter:aramaText ">
+		<td>{{c.name}}</td> 
+		<td>{{c.mail}}</td>
+		<td>{{c.password}}</td>
+		<td><button type="button" class="btn btn-info" ng-click='uc.removeUser(c)' name='Remove'>Remove</button>
+		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Edit</button>
+		<!-- Modal -->
+		<div id="myModal" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">Edit User</h4>
+		      </div>
+		      <div class="modal-body">
+		      <table>
+			      <tr>
+			      	<td><b>Name</b></td>
+					<td><b>Email<b></td>
+					<td><b>Password</b></td>
+				  </tr>
+				  <tr>
+			      	<td><input type="text" value="{{c.name}}"></td>
+					<td><input type="text" value="{{c.mail}}"></td>
+					<td><input type="text" value="{{c.password}}"></td>
+				  </tr>
+		      </table>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		
+		  </div>
+</div>
+	</tr>
+	
+</table>
